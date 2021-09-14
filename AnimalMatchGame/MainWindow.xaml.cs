@@ -1,28 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AnimalMatchGame
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            SetupGame();
+        }
+
+        private void SetupGame()
+        {
+            List<string> animals = new List<string>() {"🐵", "🐵", "🦝", "🦝", "🐷", "🐷", "🐸", "🐸", "🐲", "🐲", "🐔", "🐔", "🐰", "🐰", "🐗", "🐗"};
+            Random rnd = new Random();
+            foreach (TextBlock tb in mainGrid.Children.OfType<TextBlock>())
+            {
+                int id = rnd.Next(animals.Count);
+                tb.Text = animals[id];
+                animals.RemoveAt(id);
+            }
         }
     }
 }
